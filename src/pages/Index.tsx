@@ -225,6 +225,7 @@ const Index = () => {
             equipped={state.equipped}
             stage={stageInfo.stage}
             size="lg"
+            appState={state}
           />
         </div>
 
@@ -266,7 +267,7 @@ const Index = () => {
           <Button
             size="lg"
             onClick={() => setLogOpen(true)}
-            className="w-full h-20 text-2xl font-extrabold rounded-xl active:translate-y-1 active:shadow-none bg-green-100  border border-green-500 border-solid border-4">
+            className="w-full h-20 text-2xl font-extrabold rounded-xl active:translate-y-1 active:shadow-none bg-green-100  border border-green-500 border-solid border-4 active:scale-95 btn-pop-secondary">
             🚽 Jag gick på toa!
           </Button>
         </div>

@@ -1,4 +1,5 @@
-// Local storage layer for Toilet Buddy. Cloud persistence can replace this later.
+// State management and related logic for Toilet Buddy app (LocalStorage, points, levels, evolution, etc)
+import { streakStage } from "./pet";
 
 export type VisitType = "pee" | "poop" | "both";
 export type VisitTrigger = "self" | "reminder";
@@ -197,12 +198,28 @@ export function addVisit(
   }
   lastSelfVisitDay = today;
 
+  // Update maxEvolutionStage based on accident-free streak
+  console.log("addVisit - before streakStage:", {
+    state: state.maxEvolutionStage,
+    accidents: state.accidents.length,
+  });
+  const maxEvolutionStage = Math.max(
+    state.maxEvolutionStage,
+    streakStage({
+      ...state,
+      streakDays,
+      lastSelfVisitDay,
+    }),
+  ) as AppState["maxEvolutionStage"];
+  console.log("addVisit - after streakStage:", { maxEvolutionStage });
+
   return {
     ...state,
     visits: [...state.visits, visit],
     points: state.points + points,
     streakDays,
     lastSelfVisitDay,
+    maxEvolutionStage,
   };
 }
 
@@ -212,10 +229,19 @@ export function addAccident(state: AppState, type: AccidentType): AppState {
     ts: Date.now(),
     type,
   };
-  return {
+  const newState = {
     ...state,
     accidents: [...state.accidents, accident],
     streakDays: 0, // Reset accident-free streak
+  };
+  // maxEvolutionStage should never decrease, so use Math.max
+  const newMaxStage = streakStage(newState);
+  return {
+    ...newState,
+    maxEvolutionStage: Math.max(
+      state.maxEvolutionStage,
+      newMaxStage,
+    ) as AppState["maxEvolutionStage"],
   };
 }
 
