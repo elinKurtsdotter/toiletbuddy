@@ -96,6 +96,8 @@
   .bg-background { background-color: hsl(var(--background)); }
   .text-foreground { color: hsl(var(--foreground)); }
   .border-border { border-color: hsl(var(--border)); }
+
+  .cursor-pointer { cursor: pointer; }
   
   /* Mood color utilities */
   .bg-happy { background-color: hsl(var(--happy)); }
@@ -110,6 +112,7 @@
   .bg-yellow-400 { background-color: rgb(250 204 21); }
   .bg-yellow-500 { background-color: rgb(234 179 8); }
   .bg-purple-400 { background-color: rgb(192 132 252); }
+  .bg-red-50 { background-color: rgb(254 242 242); }
   .bg-red-100 { background-color: rgb(253, 202, 203); }
   .from-pink-400 { --tw-gradient-from: rgb(244 114 182); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgb(244 114 182 / 0)); }
   .to-pink-600 { --tw-gradient-to: rgb(219 39 119); }
