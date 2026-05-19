@@ -28,6 +28,7 @@ import { Pet } from "@/components/Pet";
 import { ShopScreen } from "@/components/ShopScreen";
 import { ParentSettings } from "@/components/ParentSettings";
 import { PinDialog } from "@/components/PinDialog";
+import { StreakDialog } from "@/components/StreakDialog";
 
 const SELF_PRAISE = [
   "Du är otrolig! ⭐",
@@ -77,6 +78,7 @@ const Index = () => {
   const [state, setState] = useState<AppState>(() => loadState());
   const [now, setNow] = useState(() => Date.now());
   const [logOpen, setLogOpen] = useState(false);
+  const [streakOpen, setStreakOpen] = useState(false);
   const [accidentOpen, setAccidentOpen] = useState(false);
   const [pinOpen, setPinOpen] = useState(false);
   const [celebrating, setCelebrating] = useState(false);
@@ -187,11 +189,13 @@ const Index = () => {
     <main className="min-h-screen flex flex-col items-center px-4 py-6 max-w-md mx-auto">
       <div className="w-full bg-white p-4 mb-6">
         <header className="w-full flex items-center justify-between">
-          <div className="bg-card rounded-2xl px-3 py-1.5 font-extrabold text-sm shadow-sm">
+          <div
+            onClick={() => setStreakOpen(true)}
+            className=" rounded-3xl px-3 py-1.5 font-extrabold text-sm cursor-pointer border border-amber-200 border-solid border-3 bg-amber-50">
             🔥 {state.streakDays}
           </div>
 
-          <div className="bg-card rounded-2xl px-3 py-1.5 font-extrabold text-sm shadow-sm">
+          <div className="bg-card rounded-3xl px-3 py-1.5 font-extrabold text-sm border border-amber-200 border-solid border-3 bg-amber-50">
             ⭐ {state.points} p
           </div>
         </header>
@@ -267,7 +271,7 @@ const Index = () => {
           <Button
             size="lg"
             onClick={() => setLogOpen(true)}
-            className="w-full h-20 text-2xl font-extrabold rounded-xl active:translate-y-1 active:shadow-none bg-green-100  border border-green-500 border-solid border-4 active:scale-95 btn-pop-secondary">
+            className="w-full h-20 text-2xl font-extrabold rounded-xl active:translate-y-1 active:shadow-none bg-green-100  border border-green-500 border-solid border-4 active:scale-95 btn-pop-secondary cursor-pointer">
             🚽 Jag gick på toa!
           </Button>
         </div>
@@ -288,6 +292,7 @@ const Index = () => {
             onClick={() => setAccidentOpen(true)}>
             Oj, det blev en olycka
           </Button>
+
           <Button
             variant="ghost"
             onClick={openParent}
@@ -301,6 +306,7 @@ const Index = () => {
           onOpenChange={setLogOpen}
           onConfirm={handleLogVisit}
         />
+
         <AccidentDialog
           open={accidentOpen}
           onOpenChange={setAccidentOpen}
@@ -308,6 +314,13 @@ const Index = () => {
           onConfirm={(type: AccidentType) => {
             setState(addAccident(state, type));
           }}
+        />
+
+        <StreakDialog
+          open={streakOpen}
+          onOpenChange={setStreakOpen}
+          petName={state.petName}
+          state={state}
         />
 
         <PinDialog
