@@ -119,17 +119,18 @@ export function ShopScreen({ state, setState, onBack }: ShopScreenProps) {
 
         <div className="w-full flex gap-1 bg-card/60 backdrop-blur p-1 overflow-x-auto mb-4">
           {TABS.map((t) => (
-            <button
+            <Button
+              variant={"secondary"}
               key={t.id}
               onClick={() => setTab(t.id)}
               className={cn(
-                "flex-1 min-w-fit px-3 py-2 rounded-xl font-extrabold text-sm transition-all whitespace-nowrap",
+                "flex-1 min-w-fit px-3 py-2 rounded-xl font-extrabold text-sm transition-all border-none",
                 tab === t.id
-                  ? "text-primary-foreground border border-green-500 border-2 bg-green-100"
-                  : "text-foreground/60 hover:text-foreground border-none",
+                  ? "text-primary-foreground bg-secondary"
+                  : "text-foreground/60 hover:text-foreground bg-gray-100 border border-gray-300 border-2 hover:scale-95 hover:bg-purple-400",
               )}>
               {t.label}
-            </button>
+            </Button>
           ))}
         </div>
 

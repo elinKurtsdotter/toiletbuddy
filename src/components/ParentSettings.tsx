@@ -80,7 +80,7 @@ export function ParentSettings({ state, setState, onBack }: Props) {
 
   return (
     <main className="min-h-screen flex flex-col items-center px-4 py-6 gap-5 max-w-md mx-auto">
-      <div className="w-full bg-amber-50 p-4 mb-6">
+      <div className="w-full bg-amber-50 px-4 py-6 mb-6">
         <header className="flex items-center justify-between">
           <Button
             onClick={onBack}
@@ -94,22 +94,22 @@ export function ParentSettings({ state, setState, onBack }: Props) {
         <div className="w-full">
           <div className="w-full flex gap-1 bg-card/60 backdrop-blur p-1 overflow-x-auto mb-4">
             {[
-              { id: "reminders", label: "Påminn." },
+              { id: "reminders", label: "Påminn" },
               { id: "pet", label: "Kompis" },
               { id: "history", label: "Historik" },
               { id: "nudge", label: "Knuff" },
             ].map((tab) => (
-              <button
+              <Button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
                 className={cn(
-                  "flex-1 min-w-fit px-3 py-2 rounded-xl font-extrabold text-sm transition-all whitespace-nowrap",
+                  "flex-1 min-w-fit px-3 py-2 rounded-xl font-extrabold text-sm transition-all whitespace-nowrap border-none",
                   activeTab === tab.id
-                    ? "text-primary-foreground border border-green-500 border-2 bg-green-100"
-                    : "text-foreground/60 hover:text-foreground bg-gray-100 border border-gray-300 border-2",
+                    ? "inline-flex items-center gap-1 bg-secondary rounded-xl p-2 font-extrabold text-sm "
+                    : "text-foreground/60 hover:text-foreground bg-gray-100 border border-gray-300 border-2 hover:scale-95 hover:bg-purple-400",
                 )}>
                 {tab.label}
-              </button>
+              </Button>
             ))}
           </div>
 
@@ -210,13 +210,13 @@ function RemindersTab({
           {r.times.map((t) => (
             <span
               key={t}
-              className="inline-flex items-center gap-1 bg-secondary rounded-full pl-3 pr-1 py-1 font-extrabold text-sm">
+              className="inline-flex items-center gap-1 bg-secondary rounded-xl p-2 font-extrabold text-sm ">
               {t}
               <button
                 onClick={() =>
                   update({ times: r.times.filter((x) => x !== t) })
                 }
-                className="rounded-full hover:bg-background/50 p-1"
+                className="rounded-xl hover:bg-background/50 p-1 border-none text-primary-foreground border border-green-500 border-2 bg-green-100"
                 aria-label={`Ta bort ${t}`}>
                 <X className="w-3 h-3" />
               </button>
@@ -228,12 +228,12 @@ function RemindersTab({
             type="time"
             value={newTime}
             onChange={(e) => setNewTime(e.target.value)}
-            className="rounded-xl font-extrabold"
+            className="rounded-xl font-extrabold "
           />
           <Button
             onClick={addTime}
             size="icon"
-            className="rounded-xl shrink-0"
+            className="rounded-xl shrink-0 text-primary-foreground border border-green-500 border-2 bg-green-100 active:bg-green-200 active:scale-95"
             aria-label="Lägg till">
             <Plus className="w-4 h-4" />
           </Button>
@@ -259,7 +259,7 @@ function RemindersTab({
       <Button
         variant="secondary"
         onClick={testPing}
-        className="w-full rounded-2xl font-extrabold h-12">
+        className="w-full h-14 text-lg rounded-2xl font-extrabold btn-pop-secondary active:translate-y-1 active:shadow-none">
         🔔 Testa en notis
       </Button>
     </div>
@@ -302,7 +302,7 @@ function PetTab({
               setState((s) => ({ ...s, petName: trimmed }));
               toast.success("Namn sparat");
             }}
-            className="rounded-xl">
+            className="rounded-xl bg-green-100 border-green-500 avtive:bg-green-200 active:scale-95">
             Spara
           </Button>
         </div>
@@ -381,7 +381,7 @@ function PetTab({
       <Button
         variant="secondary"
         onClick={onChangePet}
-        className="w-full rounded-2xl font-extrabold h-12 mb-4">
+        className="w-full text-lg rounded-2xl font-extrabold h-8 mb-4 btn-pop-secondary h-14">
         Byt kompis
       </Button>
 
@@ -397,7 +397,7 @@ function PetTab({
           setState((s) => deletePet(s));
           toast("Kompis återställd");
         }}
-        className="w-full rounded-2xl font-extrabold h-12">
+        className="w-full rounded-2xl font-extrabold h-8 ">
         <Trash2 className="w-4 h-4 mr-2" /> Återställ kompis
       </Button>
     </div>
@@ -491,7 +491,7 @@ function HistoryTab({
                 setState((s) => clearHistory(s));
                 toast("Historik rensad");
               }}
-              className="text-xs font-extrabold text-destructive active:scale-95">
+              className="text-xs bg-red-100 border-none py-1.5  rounded-xl font-extrabold text-destructive active:scale-95">
               Rensa
             </button>
           )}
@@ -504,16 +504,16 @@ function HistoryTab({
               ["accidents", "Olyckor"],
             ] as const
           ).map(([val, label]) => (
-            <button
+            <Button
               key={val}
               onClick={() => setFilter(val)}
-              className={`flex-1 rounded-xl py-1.5 text-xs font-extrabold transition-colors ${
+              className={`flex-1 rounded-xl  py-1.5 text-xs font-extrabold transition-colors border-none ${
                 filter === val
-                  ? "bg-primary text-primary-foreground"
-                  : "bg-secondary/40 text-foreground/70 active:scale-95"
+                  ? "text-primary-foreground border-green-500 border-2 bg-secondary"
+                  : "text-foreground/60 hover:text-foreground bg-gray-100 hover:scale-95"
               }`}>
               {label}
-            </button>
+            </Button>
           ))}
         </div>
         {events.length === 0 ? (
@@ -593,12 +593,13 @@ function NudgeTab({
         </p>
       </div>
       <Button
+        variant={"secondary"}
         onClick={() => {
           emitNudge();
           onBack();
           toast.success(`${petName} viftar! 👋`);
         }}
-        className="w-full h-14 text-lg rounded-2xl font-extrabold btn-pop active:translate-y-1 active:shadow-none">
+        className="w-full h-14 text-lg rounded-2xl font-extrabold btn-pop-secondary active:translate-y-1 active:shadow-none">
         ✨ Skicka knuff nu
       </Button>
     </div>
