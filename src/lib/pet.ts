@@ -127,3 +127,13 @@ export function getStageInfo(maxEvolutionStage: number): {
   const name = EVOLUTION_LABEL[stage] || "Bebis";
   return { name, stage };
 }
+
+/**
+ * Effective stage shown to the child. Once a stage is reached it is never lost,
+ * so a single accident doesn't undo the child's progress.
+ */
+export function evolutionStage(state: AppState): EvolutionStage {
+  const current = streakStage(state);
+  const max = (state.maxEvolutionStage ?? 0) as EvolutionStage;
+  return (current > max ? current : max) as EvolutionStage;
+}
