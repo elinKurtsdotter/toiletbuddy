@@ -491,7 +491,7 @@ function HistoryTab({
                 setState((s) => clearHistory(s));
                 toast("Historik rensad");
               }}
-              className="text-xs bg-red-100 border-none py-1.5  rounded-xl font-extrabold text-destructive active:scale-95">
+              className="text-xs bg-red-100 border-none py-1.5  rounded-xl font-extrabold text-black active:scale-95">
               Rensa
             </button>
           )}
