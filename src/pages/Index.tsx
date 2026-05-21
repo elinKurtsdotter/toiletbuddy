@@ -27,6 +27,7 @@ import { StatBar } from "@/components/StatBar";
 import { Pet } from "@/components/Pet";
 import { ShopScreen } from "@/components/ShopScreen";
 import { ParentSettings } from "@/components/ParentSettings";
+import { PetDetailsScreen } from "@/components/PetDetailsScreen";
 import { PinDialog } from "@/components/PinDialog";
 import { StreakDialog } from "@/components/StreakDialog";
 
@@ -84,7 +85,7 @@ const Index = () => {
   const [celebrating, setCelebrating] = useState(false);
   // const [nudgeMsg, setNudgeMsg] = useState<string | null>(null);
   // const [nudging, setNudging] = useState(false);
-  const [view, setView] = useState<"home" | "shop" | "parent">("home");
+  const [view, setView] = useState<"home" | "shop" | "parent" | "pet">("home");
 
   //   useReminders({
   //     state,
@@ -185,9 +186,13 @@ const Index = () => {
     );
   }
 
+  if (view === "pet") {
+    return <PetDetailsScreen state={state} onBack={() => setView("home")} />;
+  }
+
   return (
     <main className="min-h-screen flex flex-col items-center px-4 py-6 max-w-md mx-auto">
-      <div className="w-full bg-white p-4 mb-6">
+      <div className="w-full bg-white/90 p-4 mb-6">
         <header className="w-full flex items-center justify-between">
           <div
             onClick={() => setStreakOpen(true)}
@@ -221,16 +226,21 @@ const Index = () => {
               </div>
             </div>
           )} */}
-          <Pet
-            species={state.petSpecies}
-            mood={mood}
-            celebrating={celebrating}
-            // nudging={nudging}
-            equipped={state.equipped}
-            stage={stageInfo.stage}
-            size="lg"
-            appState={state}
-          />
+          <button
+            onClick={() => setView("pet")}
+            className="visualy-hidden-focus bg-transparent border-none w-full p-0 cursor-pointer"
+            aria-label={`Visa info om ${state.petName}`}>
+            <Pet
+              species={state.petSpecies}
+              mood={mood}
+              celebrating={celebrating}
+              // nudging={nudging}
+              equipped={state.equipped}
+              stage={stageInfo.stage}
+              size="lg"
+              appState={state}
+            />
+          </button>
         </div>
 
         <div className="w-full my-4 mb-6 rounded-xl p-4 space-y-3 bg-amber-50 border border-amber-200 border-solid border-4 box-border">
@@ -280,7 +290,7 @@ const Index = () => {
             <div className="parallelogram-bg"></div>
             <Button
               onClick={() => setView("shop")}
-              className="parallelogram-button text-sm rounded-xl active:translate-y-1 active:shadow-none px-4 ">
+              className="parallelogram-button text-sm rounded-xl active:translate-y-1 active:shadow-none px-4 cursor-pointer">
               <ShoppingBag className="w-4 h-4" /> Butik
             </Button>
           </div>
@@ -296,7 +306,8 @@ const Index = () => {
           <Button
             variant="ghost"
             onClick={openParent}
-            aria-label="Föräldrainställningar">
+            aria-label="Föräldrainställningar"
+            className="cursor-pointer">
             <Settings className="w-4 h-4" />
           </Button>
         </div>
