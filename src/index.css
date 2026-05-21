@@ -326,4 +326,11 @@
   .tab-trigger-active {
     background-color: rgb(207, 201, 244) !important;
   }
+
+  /* Ensure toast text color is explicit for Safari iOS (fix -webkit-text-fill-color) */
+  .toast-root,
+  .toast-root * {
+    color: hsl(var(--foreground)) !important;
+    -webkit-text-fill-color: hsl(var(--foreground)) !important;
+  }
 }
