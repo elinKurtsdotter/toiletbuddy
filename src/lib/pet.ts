@@ -110,15 +110,6 @@ export function streakStage(state: AppState): EvolutionStage {
   return 0;
 }
 
-/**
- * Effective stage shown to the child. Once a stage is reached it is never lost,
- * so a single accident doesn't undo the child's progress.
- */
-// export function evolutionStage(state: AppState): EvolutionStage {
-//   const current = streakStage(state);
-//   const max = (state.maxEvolutionStage ?? 0) as EvolutionStage;
-// }
-
 export function getStageInfo(maxEvolutionStage: number): {
   name: string;
   stage: EvolutionStage;

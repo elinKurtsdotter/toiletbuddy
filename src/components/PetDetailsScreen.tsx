@@ -13,6 +13,8 @@ import {
 import { levelFromPoints } from "@/lib/storage";
 import { computeAchievements } from "@/lib/achievements";
 import { cn } from "@/lib/utils";
+import { Medal } from "./Medal";
+import React from "react";
 
 interface Props {
   state: AppState;
@@ -56,6 +58,9 @@ export function PetDetailsScreen({ state, onBack }: Props) {
   const maxReached = (state.maxEvolutionStage ?? 0) as 0 | 1 | 2;
   const streak = accidentFreeStreak(state);
   const lvl = levelFromPoints(state.points);
+  const [selectedAchievement, setSelectedAchievement] = React.useState<
+    ReturnType<typeof computeAchievements>[number] | null
+  >(null);
 
   const stats = useMemo(() => {
     const visits = state.visits;
@@ -200,12 +205,14 @@ export function PetDetailsScreen({ state, onBack }: Props) {
               {achievements.length}
             </span>
           </div>
+
           <div className="grid grid-cols-3 gap-2">
             {achievements.map((a) => (
-              <div
+              <Button
                 key={a.id}
+                onClick={() => setSelectedAchievement(a)}
                 className={cn(
-                  "relative rounded-2xl p-2 flex flex-col items-center gap-1 border-2 text-center",
+                  "relative rounded-2xl p-2 flex flex-col items-center gap-1 border-2 text-center h-12",
                   a.unlocked
                     ? "border-star bg-star/10"
                     : "border-dashed border-foreground/15 bg-muted/40",
@@ -240,7 +247,7 @@ export function PetDetailsScreen({ state, onBack }: Props) {
                     style={{ width: `${a.progress * 100}%` }}
                   />
                 </div>
-              </div>
+              </Button>
             ))}
           </div>
         </section>
@@ -260,6 +267,23 @@ export function PetDetailsScreen({ state, onBack }: Props) {
             <Stat label="Daglig streak" value={state.streakDays} icon="🔥" />
           </div>
         </section>
+
+        {selectedAchievement && (
+          <Medal
+            open={!!selectedAchievement}
+            onOpenChange={(open) => {
+              if (!open) setSelectedAchievement(null);
+            }}
+            id={selectedAchievement.id}
+            name={selectedAchievement.name}
+            description={selectedAchievement.description}
+            emoji={selectedAchievement.emoji}
+            unlocked={selectedAchievement.unlocked}
+            progress={selectedAchievement.progress}
+            current={selectedAchievement.current}
+            target={selectedAchievement.target}
+          />
+        )}
       </div>
     </main>
   );
