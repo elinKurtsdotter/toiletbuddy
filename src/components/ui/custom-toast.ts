@@ -13,7 +13,7 @@ export const customToast = {
         borderColor: "rgb(34, 197, 94)",
         borderWidth: "2px",
         borderStyle: "solid",
-        color: "rgb(0,0,0)",
+        color: "rgb(0, 0, 0)",
       },
     });
   },
@@ -25,7 +25,7 @@ export const customToast = {
         borderColor: "rgb(239, 68, 68)",
         borderWidth: "2px",
         borderStyle: "solid",
-        color: "rgb(0,0,0)",
+        color: "rgb(0, 0, 0)",
       },
     });
   },
@@ -37,7 +37,7 @@ export const customToast = {
         borderColor: "rgb(59, 130, 246)",
         borderWidth: "2px",
         borderStyle: "solid",
-        color: "rgb(0,0,0)",
+        color: "rgb(0, 0, 0)",
       },
     });
   },
@@ -49,7 +49,7 @@ export const customToast = {
         borderColor: "rgb(234, 179, 8)",
         borderWidth: "2px",
         borderStyle: "solid",
-        color: "rgb(0,0,0)",
+        color: "rgb(0, 0, 0)",
       },
     });
   },

@@ -291,6 +291,8 @@
   /* Text color utilities */
   .text-white { color: rgb(255 255 255); }
   .text-black { color: rgb(0 0 0); }
+  .text-red { color: rgb(239, 68, 68); }
+  .text-green { color: rgb(34, 197, 94); }
   .text-foreground\/70 { color: hsl(var(--foreground) / 0.7); }
   .text-foreground\/60 { color: hsl(var(--foreground) / 0.6); }
   .text-error { color: hsl(var(--destructive)); }
