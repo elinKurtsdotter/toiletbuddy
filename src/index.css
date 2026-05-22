@@ -348,11 +348,11 @@
   } */
 
   /* Override description text to black on iOS */
-  /* .toast-root [data-sonner-description],
+  .toast-root [data-sonner-description],
   .sonner-toast-description,
   .sonner-description,
   .toast-root .description {
     color: rgb(0, 0, 0) !important;
     -webkit-text-fill-color: rgb(0, 0, 0) !important;
-  } */
+  }
 }
