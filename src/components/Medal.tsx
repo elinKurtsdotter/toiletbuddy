@@ -68,11 +68,6 @@ export function Medal({
               </div>
             </div>
           )}
-
-          {/* <p className="text-center font-extrabold text-lg">
-            {streakMessages[8] ||
-              "Kämpa på! Du är snart där! ✨"}
-          </p> */}
         </div>
       </DialogContent>
     </Dialog>
