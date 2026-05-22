@@ -8,6 +8,9 @@ export const customToast = {
   success: (message: string, options?: ToastOptions) => {
     return toast.success(message, {
       ...options,
+      classNames: {
+        description: "sonner-description-dark",
+      },
       style: {
         backgroundColor: "rgb(220, 252, 231)",
         borderColor: "rgb(34, 197, 94)",
@@ -20,6 +23,9 @@ export const customToast = {
   error: (message: string, options?: ToastOptions) => {
     return toast.error(message, {
       ...options,
+      classNames: {
+        description: "sonner-description-dark",
+      },
       style: {
         backgroundColor: "rgb(254, 226, 226)",
         borderColor: "rgb(239, 68, 68)",
@@ -32,6 +38,9 @@ export const customToast = {
   info: (message: string, options?: ToastOptions) => {
     return toast.info(message, {
       ...options,
+      classNames: {
+        description: "sonner-description-dark",
+      },
       style: {
         backgroundColor: "rgb(219, 234, 254)",
         borderColor: "rgb(59, 130, 246)",
@@ -44,6 +53,9 @@ export const customToast = {
   warning: (message: string, options?: ToastOptions) => {
     return toast.warning(message, {
       ...options,
+      classNames: {
+        description: "sonner-description-dark",
+      },
       style: {
         backgroundColor: "rgb(254, 243, 199)",
         borderColor: "rgb(234, 179, 8)",

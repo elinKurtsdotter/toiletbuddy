@@ -341,18 +341,16 @@
   }
 
   /* Ensure toast text color is explicit for Safari iOS (fix -webkit-text-fill-color) */
-  /* .toast-root,
+  .toast-root,
   .toast-root * {
     color: hsl(var(--foreground)) !important;
     -webkit-text-fill-color: hsl(var(--foreground)) !important;
-  } */
+  }
 
-  /* Override description text to black on iOS */
-  .toast-root [data-sonner-description],
-  .sonner-toast-description,
-  .sonner-description,
-  .toast-root .description {
-    color: rgb(0, 0, 0) !important;
-    -webkit-text-fill-color: rgb(0, 0, 0) !important;
+  /* Force description text to black on iOS Safari */
+  .sonner-description-dark {
+    color: black !important;
+    -webkit-text-fill-color: black !important;
+    text-fill-color: black !important;
   }
 }
