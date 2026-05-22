@@ -147,7 +147,9 @@ export function ShopScreen({ state, setState, onBack }: ShopScreenProps) {
                     canAfford ? "" : "opacity-60",
                   )}>
                   <span className="text-5xl select-none">{f.emoji}</span>
-                  <span className="font-extrabold text-sm">{f.name}</span>
+                  <span className="font-extrabold text-sm text-black">
+                    {f.name}
+                  </span>
                   <span className="text-xs font-bold text-primary-foreground px-2 rounded-full">
                     ⭐ {f.cost}
                   </span>

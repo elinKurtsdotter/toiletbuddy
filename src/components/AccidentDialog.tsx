@@ -86,7 +86,9 @@ export function AccidentDialog({
                     o.borderColor,
                   )}>
                   <span className="text-4xl">{o.emoji}</span>
-                  <span className="font-extrabold text-xl">{o.label}</span>
+                  <span className="font-extrabold text-xl text-black">
+                    {o.label}
+                  </span>
                 </button>
               ))}
             </div>
@@ -96,7 +98,7 @@ export function AccidentDialog({
         {picked && (
           <div className="flex flex-col items-center gap-3 animate-pop-in py-2">
             <span className="text-6xl">🤗</span>
-            <p className="text-center font-extrabold text-lg">
+            <p className="text-center font-extrabold text-l">
               {petName} ger dig en stor kram!
             </p>
             <p className="text-center text-sm font-bold text-foreground/70">
