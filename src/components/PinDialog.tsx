@@ -181,13 +181,14 @@ export function PinDialog({
                   activeKey === k
                     ? {
                         backgroundColor: "hsl(330 90% 75%)",
+                        borderColor: "transparent",
                         transform: "scale(0.95)",
                       }
                     : hoverKey === k
                       ? { backgroundColor: "hsl(330 90% 75%)" }
                       : {}
                 }
-                className="font-display font-extrabold text-2xl  h-14 rounded-2xl transition-all hover:border-none">
+                className="font-display text-black font-extrabold text-2xl  h-14 rounded-2xl transition-all hover:border-none">
                 {k === "del" ? <Delete className="w-5 h-5" /> : k}
               </Button>
             ),
