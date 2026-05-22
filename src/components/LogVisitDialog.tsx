@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type { VisitType, VisitTrigger } from "@/lib/storage";
+import type { VisitType, VisitTrigger, WipeMode } from "@/lib/storage";
 import { pointsForVisit } from "@/lib/storage";
 import {
   Dialog,
@@ -13,7 +13,7 @@ import { Button } from "./ui/button";
 interface LogVisitDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  onConfirm: (type: VisitType, trigger: VisitTrigger) => void;
+  onConfirm: (type: VisitType, trigger: VisitTrigger, wipe: WipeMode) => void;
 }
 
 const TYPE_OPTIONS: {
@@ -52,31 +52,55 @@ export function LogVisitDialog({
   onConfirm,
 }: LogVisitDialogProps) {
   const [type, setType] = useState<VisitType | null>(null);
+  const [trigger, setTrigger] = useState<VisitTrigger | null>(null);
 
-  const reset = () => setType(null);
+  const needsWipe = type === "poop" || type === "both";
+
+  const reset = () => {
+    setType(null);
+    setTrigger(null);
+  };
 
   const handleClose = (o: boolean) => {
     if (!o) reset();
     onOpenChange(o);
   };
 
-  const handleTrigger = (trigger: VisitTrigger) => {
+  const handleTrigger = (t: VisitTrigger) => {
     if (!type) return;
-    onConfirm(type, trigger);
+    if (needsWipe) {
+      setTrigger(t);
+    } else {
+      onConfirm(type, t, "na");
+      reset();
+    }
+  };
+
+  const handleWipe = (w: WipeMode) => {
+    if (!type || !trigger) return;
+    onConfirm(type, trigger, w);
     reset();
   };
+
+  const step: "type" | "trigger" | "wipe" = !type
+    ? "type"
+    : !trigger
+      ? "trigger"
+      : "wipe";
 
   return (
     <Dialog open={open} onOpenChange={handleClose}>
       <DialogContent className="rounded-xl border-4 bg-card w-full p-6 gap-5 box-border">
         <DialogTitle className="font-display font-extrabold text-2xl text-center">
-          {type ? "Hur gick det?" : "Vad gjorde du?"}
+          {step === "type" && "Vad gjorde du?"}
+          {step === "trigger" && "Hur gick det?"}
+          {step === "wipe" && "Och torkningen?"}
         </DialogTitle>
         <DialogDescription className="sr-only">
           Logga ditt toabesök för att få poäng
         </DialogDescription>
 
-        {!type && (
+        {step === "type" && (
           <div className="grid grid-cols-1 gap-3 animate-pop-in">
             {TYPE_OPTIONS.map((o) => (
               <button
@@ -95,7 +119,7 @@ export function LogVisitDialog({
           </div>
         )}
 
-        {type && (
+        {step === "trigger" && type && (
           <div className="flex flex-col gap-3 animate-pop-in">
             <button
               onClick={() => handleTrigger("self")}
@@ -104,8 +128,8 @@ export function LogVisitDialog({
                 "flex flex-col items-center gap-1 transition-all hover:scale-[1.02] active:scale-95 border border-2  border-yellow-500 ",
               )}>
               <span className="text-3xl">🌟</span>
-              <span className="font-extrabold text-xl">Jag gick själv!</span>
-              <span className="text-xs font-bold opacity-80">
+              <span className="font-extrabold text-lg">Jag gick själv!</span>
+              <span className="text-xs font-bold text-black">
                 +{pointsForVisit(type, "self")} poäng • 3× bonus
               </span>
             </button>
@@ -116,15 +140,52 @@ export function LogVisitDialog({
                 "flex flex-col items-center gap-1 transition-all hover:scale-[1.02] active:scale-95 border border-2 border-green-500",
               )}>
               <span className="text-2xl">👍</span>
-              <span className="font-extrabold text-lg ">
+              <span className="font-extrabold text-lg">
                 Efter en påminnelse
               </span>
-              <span className="text-xs font-bold text-foreground text-opacity-60">
+              <span className="text-xs font-bold text-black">
                 +{pointsForVisit(type, "reminder")} poäng
               </span>
             </button>
             <Button
               onClick={() => setType(null)}
+              className="text-xs font-bold text-foreground/50 underline decoration-dotted underline-offset-4 mt-1 bg-transparent border-none hover:bg-transparent">
+              Tillbaka
+            </Button>
+          </div>
+        )}
+
+        {step === "wipe" && type && trigger && (
+          <div className="flex flex-col gap-3 animate-pop-in">
+            <button
+              onClick={() => handleWipe("self")}
+              className={cn(
+                "rounded-2xl p-4 bg-yellow-100",
+                "flex flex-col items-center gap-1 transition-all hover:scale-[1.02] active:scale-95 border border-2  border-yellow-500 ",
+              )}>
+              <span className="text-3xl">🧻✨</span>
+              <span className="font-extrabold text-lg">Jag torkade själv!</span>
+              <span className="text-xs font-bold text-black">
+                +{pointsForVisit(type, trigger, "self")} poäng • +5 bonus
+              </span>
+            </button>
+
+            <button
+              onClick={() => handleWipe("help")}
+              className={cn(
+                "rounded-2xl p-4 bg-secondary",
+                "flex flex-col items-center gap-1 transition-all hover:scale-[1.02] active:scale-95 border border-2 border-green-500",
+              )}>
+              <span className="text-2xl">🤝</span>
+              <span className="font-extrabold text-lg">Jag fick hjälp</span>
+              <span className="text-xs font-bold text-black">
+                Helt okej — vi övar! +{pointsForVisit(type, trigger, "help")}{" "}
+                poäng
+              </span>
+            </button>
+
+            <Button
+              onClick={() => setTrigger(null)}
               className="text-xs font-bold text-foreground/50 underline decoration-dotted underline-offset-4 mt-1 bg-transparent border-none hover:bg-transparent">
               Tillbaka
             </Button>
