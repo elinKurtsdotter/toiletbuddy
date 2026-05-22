@@ -107,7 +107,7 @@ export function LogVisitDialog({
                 key={o.id}
                 onClick={() => setType(o.id)}
                 className={cn(
-                  "rounded-2xl p-4 border-2 hover:bg-secondary",
+                  "rounded-2xl p-4 border-2 hover:bg-secondary text-black",
                   "flex items-center gap-4 transition-all hover:scale-[1.02] active:scale-95",
                   o.backgroundColor,
                   o.borderColor,
