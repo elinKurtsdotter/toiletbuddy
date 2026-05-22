@@ -128,7 +128,9 @@ export function LogVisitDialog({
                 "flex flex-col items-center gap-1 transition-all hover:scale-[1.02] active:scale-95 border border-2  border-yellow-500 ",
               )}>
               <span className="text-3xl">🌟</span>
-              <span className="font-extrabold text-lg">Jag gick själv!</span>
+              <span className="font-extrabold text-lg text-black">
+                Jag gick själv!
+              </span>
               <span className="text-xs font-bold text-black">
                 +{pointsForVisit(type, "self")} poäng • 3× bonus
               </span>
@@ -140,7 +142,7 @@ export function LogVisitDialog({
                 "flex flex-col items-center gap-1 transition-all hover:scale-[1.02] active:scale-95 border border-2 border-green-500",
               )}>
               <span className="text-2xl">👍</span>
-              <span className="font-extrabold text-lg">
+              <span className="font-extrabold text-lg text-black">
                 Efter en påminnelse
               </span>
               <span className="text-xs font-bold text-black">
@@ -164,7 +166,9 @@ export function LogVisitDialog({
                 "flex flex-col items-center gap-1 transition-all hover:scale-[1.02] active:scale-95 border border-2  border-yellow-500 ",
               )}>
               <span className="text-3xl">🧻✨</span>
-              <span className="font-extrabold text-lg">Jag torkade själv!</span>
+              <span className="font-extrabold text-lg text-black">
+                Jag torkade själv!
+              </span>
               <span className="text-xs font-bold text-black">
                 +{pointsForVisit(type, trigger, "self")} poäng • +5 bonus
               </span>
@@ -177,7 +181,9 @@ export function LogVisitDialog({
                 "flex flex-col items-center gap-1 transition-all hover:scale-[1.02] active:scale-95 border border-2 border-green-500",
               )}>
               <span className="text-2xl">🤝</span>
-              <span className="font-extrabold text-lg">Jag fick hjälp</span>
+              <span className="font-extrabold text-lg text-black">
+                Jag fick hjälp
+              </span>
               <span className="text-xs font-bold text-black">
                 Helt okej — vi övar! +{pointsForVisit(type, trigger, "help")}{" "}
                 poäng
